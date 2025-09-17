@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🏦 Bank Marketing Prediction</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 0 20px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      color: white;
+    }
+
+    .header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      animation: fadeInDown 0.8s ease-out;
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    .form-container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      animation: slideInUp 1s ease-out 0.4s both;
+    }
+
+    .progress-bar {
+      height: 6px;
+      background: #e5e7eb;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      border-radius: 10px;
+      width: 33%;
+      transition: width 0.3s ease;
+    }
+
+    .section {
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInSection 0.6s ease-out forwards;
+    }
+
+    .section:nth-child(2) { animation-delay: 0.6s; }
+    .section:nth-child(3) { animation-delay: 0.8s; }
+    .section:nth-child(4) { animation-delay: 1s; }
+
+    .section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 25px;
+      color: #1f2937;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section h2::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, transparent);
+      border-radius: 2px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .form-group {
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #374151;
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .form-group input:hover,
+    .form-group select:hover {
+      border-color: #9ca3af;
+    }
+
+    .input-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+      pointer-events: none;
+    }
+
+    .predict-button {
+      width: 100%;
+      padding: 20px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      color: white;
+      border: none;
+      border-radius: 16px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 30px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+    }
+
+    .predict-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+    }
+
+    .predict-button:active {
+      transform: translateY(0);
+    }
+
+    .predict-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .predict-button:hover::before {
+      left: 100%;
+    }
+
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1f2937;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+
+    .tooltip:hover::after {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(-5px);
+    }
+
+    .result-card {
+      display: none;
+      margin-top: 30px;
+      padding: 25px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      border-radius: 16px;
+      text-align: center;
+      animation: resultAppear 0.5s ease-out;
+    }
+
+    .result-card.negative {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+    }
+
+    .result-percentage {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInSection {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes resultAppear {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @media (max-width: 768px) {
+      .features {
+        grid-template-columns: 1fr;
+      }
+      
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .form-container {
+        padding: 30px 20px;
+      }
+    }
+
+    .floating-elements {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .floating-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .floating-circle:nth-child(1) {
+      width: 80px;
+      height: 80px;
+      top: 20%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .floating-circle:nth-child(2) {
+      width: 120px;
+      height: 120px;
+      top: 60%;
+      right: 10%;
+      animation-delay: 2s;
+    }
+
+    .floating-circle:nth-child(3) {
+      width: 60px;
+      height: 60px;
+      top: 80%;
+      left: 20%;
+      animation-delay: 4s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(180deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-elements">
+    <div class="floating-circle"></div>
+    <div class="floating-circle"></div>
+    <div class="floating-circle"></div>
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <h1>🏦 Bank Marketing Prediction</h1>
+      <p>AI-Powered Customer Subscription Analysis</p>
+    </div>
+
+    <div class="form-container">
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+
+      <form id="predictionForm" method="POST" action="/predict">
+        <div class="section">
+          <h2>👤 Customer Information</h2>
+          <div class="features">
+            <div class="form-group">
+              <label>Age</label>
+              <input type="number" name="age" min="18" max="100" required>
+            </div>
+            <div class="form-group">
+              <label>Job Category</label>
+              <select name="job" required>
+                <option value="">Select job category</option>
+                <option value="admin.">Administrative</option>
+                <option value="management">Management</option>
+                <option value="technician">Technician</option>
+                <option value="blue-collar">Blue-collar</option>
+                <option value="services">Services</option>
+                <option value="student">Student</option>
+                <option value="retired">Retired</option>
+                <option value="entrepreneur">Entrepreneur</option>
+                <option value="housemaid">Housemaid</option>
+                <option value="self-employed">Self-employed</option>
+                <option value="unemployed">Unemployed</option>
+                <option value="unknown">Unknown</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Marital Status</label>
+              <select name="marital" required>
+                <option value="">Select marital status</option>
+                <option value="single">Single</option>
+                <option value="married">Married</option>
+                <option value="divorced">Divorced</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Education Level</label>
+              <select name="education" required>
+                <option value="">Select education level</option>
+                <option value="primary">Primary</option>
+                <option value="secondary">Secondary</option>
+                <option value="tertiary">Tertiary</option>
+                <option value="unknown">Unknown</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Housing Loan</label>
+              <select name="housing" required>
+                <option value="">Has housing loan?</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Personal Loan</label>
+              <select name="loan" required>
+                <option value="">Has personal loan?</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div class="form-group tooltip" data-tooltip="Average yearly balance in customer's account">
+              <label>Account Balance (£)</label>
+              <input type="number" name="balance" step="0.01" min="0" placeholder="0.00">
+              <div class="input-icon">£</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>📞 Campaign Information</h2>
+          <div class="features">
+            <div class="form-group">
+              <label>Contact Method</label>
+              <select name="contact" required>
+                <option value="">Select contact method</option>
+                <option value="cellular">Cellular</option>
+                <option value="telephone">Telephone</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Contact Month</label>
+              <select name="month" required>
+                <option value="">Select month</option>
+                <option value="jan">January</option>
+                <option value="feb">February</option>
+                <option value="mar">March</option>
+                <option value="apr">April</option>
+                <option value="may">May</option>
+                <option value="jun">June</option>
+                <option value="jul">July</option>
+                <option value="aug">August</option>
+                <option value="sep">September</option>
+                <option value="oct">October</option>
+                <option value="nov">November</option>
+                <option value="dec">December</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Day of Week</label>
+              <select name="day_of_week" required>
+                <option value="">Select day</option>
+                <option value="mon">Monday</option>
+                <option value="tue">Tuesday</option>
+                <option value="wed">Wednesday</option>
+                <option value="thu">Thursday</option>
+                <option value="fri">Friday</option>
+              </select>
+            </div>
+            <div class="form-group tooltip" data-tooltip="Duration of last contact in seconds">
+              <label>Call Duration (seconds)</label>
+              <input type="number" name="duration" min="0" value="0">
+            </div>
+            <div class="form-group tooltip" data-tooltip="Number of contacts during this campaign">
+              <label>Campaign Contacts</label>
+              <input type="number" name="campaign" min="1" value="1">
+            </div>
+            <div class="form-group tooltip" data-tooltip="Number of contacts before this campaign">
+              <label>Previous Contacts</label>
+              <input type="number" name="previous" min="0" value="0">
+            </div>
+            <div class="form-group tooltip" data-tooltip="Days since last contact (-1 if never contacted)">
+              <label>Days Since Last Contact</label>
+              <input type="number" name="pdays" value="-1">
+            </div>
+            <div class="form-group">
+              <label>Previous Campaign Outcome</label>
+              <select name="poutcome" required>
+                <option value="">Select outcome</option>
+                <option value="nonexistent">No Previous Campaign</option>
+                <option value="success">Success</option>
+                <option value="failure">Failure</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>📈 Economic Indicators</h2>
+          <div class="features">
+            <div class="form-group tooltip" data-tooltip="European Interbank Offered Rate for 3 months">
+              <label>Euribor 3 Month Rate (%)</label>
+              <input type="number" step="0.001" name="euribor3m" value="1.0">
+            </div>
+            <div class="form-group tooltip" data-tooltip="Consumer confidence index (negative values indicate pessimism)">
+              <label>Consumer Confidence Index</label>
+              <input type="number" step="0.1" name="cons.conf.idx" value="-40">
+            </div>
+            <div class="form-group tooltip" data-tooltip="Quarterly employment variation rate">
+              <label>Employment Variation Rate (%)</label>
+              <input type="number" step="0.1" name="emp.var.rate" value="1.1">
+            </div>
+            <div class="form-group tooltip" data-tooltip="Number of employees (in thousands)">
+              <label>Number Employed (thousands)</label>
+              <input type="number" step="0.1" name="nr.employed" value="5000">
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="predict-button">
+          🔮 Predict Subscription Probability
+        </button>
+
+        <div id="resultCard" class="result-card">
+          <div class="result-percentage" id="resultPercentage"></div>
+          <div id="resultText"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Update progress bar based on form completion
+    function updateProgressBar() {
+      const form = document.getElementById('predictionForm');
+      const inputs = form.querySelectorAll('input[required], select[required]');
+      const filled = Array.from(inputs).filter(input => input.value.trim() !== '').length;
+      const percentage = (filled / inputs.length) * 100;
+      
+      document.querySelector('.progress-fill').style.width = percentage + '%';
+    }
+
+    // Add event listeners to all form inputs
+    document.querySelectorAll('input, select').forEach(input => {
+      input.addEventListener('input', updateProgressBar);
+      input.addEventListener('change', updateProgressBar);
+    });
+
+    // Form submission handler (simulated prediction)
+    document.getElementById('predictionForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Simulate AI prediction (in real implementation, this would call your ML model)
+      const formData = new FormData(this);
+      
+      // Simple mock prediction logic based on some factors
+      const age = parseInt(formData.get('age')) || 0;
+      const duration = parseInt(formData.get('duration')) || 0;
+      const campaign = parseInt(formData.get('campaign')) || 1;
+      const previous = parseInt(formData.get('previous')) || 0;
+      const balance = parseFloat(formData.get('balance')) || 0;
+      const job = formData.get('job');
+      const education = formData.get('education');
+      const poutcome = formData.get('poutcome');
+      
+      let score = 0.5; // Base probability
+      
+      // Age factor
+      if (age >= 30 && age <= 60) score += 0.1;
+      
+      // Duration factor (longer calls often indicate interest)
+      if (duration > 300) score += 0.2;
+      else if (duration > 120) score += 0.1;
+      
+      // Campaign contacts (fewer is better)
+      if (campaign === 1) score += 0.1;
+      else if (campaign > 3) score -= 0.1;
+      
+      // Previous outcome
+      if (poutcome === 'success') score += 0.3;
+      else if (poutcome === 'failure') score -= 0.2;
+      
+      // Balance factor (higher balance often correlates with subscription)
+      if (balance > 10000) score += 0.15;
+      else if (balance > 5000) score += 0.1;
+      else if (balance > 1000) score += 0.05;
+      else if (balance < 0) score -= 0.1; // Negative balance is concerning
+      
+      // Job and education
+      if (job === 'management' || job === 'admin.') score += 0.05;
+      if (education === 'tertiary') score += 0.05;
+      
+      // Add some randomness
+      score += (Math.random() - 0.5) * 0.2;
+      
+      // Clamp between 0 and 1
+      score = Math.max(0, Math.min(1, score));
+      
+      const percentage = Math.round(score * 100);
+      
+      // Display result
+      const resultCard = document.getElementById('resultCard');
+      const resultPercentage = document.getElementById('resultPercentage');
+      const resultText = document.getElementById('resultText');
+      
+      resultPercentage.textContent = percentage + '%';
+      
+      if (percentage >= 70) {
+        resultCard.className = 'result-card';
+        resultText.textContent = 'High probability of subscription! This customer is an excellent target for the marketing campaign.';
+      } else if (percentage >= 50) {
+        resultCard.className = 'result-card';
+        resultText.textContent = 'Moderate probability of subscription. Consider personalized approach for this customer.';
+      } else {
+        resultCard.className = 'result-card negative';
+        resultText.textContent = 'Low probability of subscription. This customer may not be the best target for this campaign.';
+      }
+      
+      resultCard.style.display = 'block';
+      resultCard.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Initialize progress bar
+    updateProgressBar();
+
+    // Add smooth scrolling for better UX
+    document.querySelectorAll('input, select').forEach(input => {
+      input.addEventListener('focus', function() {
+        this.parentElement.style.transform = 'translateY(-2px)';
+      });
+      
+      input.addEventListener('blur', function() {
+        this.parentElement.style.transform = 'translateY(0)';
+      });
+    });
+  </script>
+</body>
+</html>
