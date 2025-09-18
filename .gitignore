@@ -144,6 +144,20 @@ ENV/
 env.bak/
 venv.bak/
 
+# ML model artifacts
+models/
+*.pkl
+*.joblib
+
+# Data files
+data/
+*.csv
+*.tsv
+
+# Docker override files
+docker-compose.override.yml
+
+
 # Spyder project settings
 .spyderproject
 .spyproject
