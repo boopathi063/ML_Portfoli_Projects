@@ -12,7 +12,7 @@
 ---
 
 ## 🚀 Project Overview
-This project is an **AI-powered web application** that predicts whether a bank customer will subscribe to a term deposit based on their demographics, past interactions, and economic indicators. The model leverages advanced **machine learning algorithm** like **XGBoost** for high accuracy, and the application is built using **Flask** for web deployment and **Docker** for containerization and cloud readiness.
+This project is an **AI-powered web application** that predicts whether a bank customer will subscribe to a term deposit based on their demographics, past interactions, and economic indicators. The model leverages advanced **machine learning algorithms** like **XGBoost** for high accuracy, and the application is built using **Flask** for web deployment and **Docker** for containerization and cloud readiness.
 
 ---
 
@@ -38,6 +38,31 @@ This project is an **AI-powered web application** that predicts whether a bank c
 - **Optuna** – Hyperparameter optimization
 
 ---
+
+## 🤖 Models Evaluated  
+The project benchmarks several machine learning models before selecting the best:  
+
+- Logistic Regression  
+- Decision Tree Classifier  
+- Random Forest Classifier  
+- Gradient Boosting Classifier  
+- Support Vector Machine (SVM)  
+- K-Nearest Neighbors (KNN)  
+- XGBoost  
+- LightGBM  
+
+**Final Choice:**  
+- **XGBoost** was selected as the production model, achieving:  
+
+| Metric   | Score |
+|----------|-------|
+| Accuracy | 0.87  |
+| Recall   | 0.93  |
+| F1 Score | 0.62  |
+| ROC-AUC  | 0.96  |
+
+---
+
 
 ## 📂 Project Structure
 ├── app.py # Flask application
