@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import logging
-from datetime import datetime
+from datetime import datetime 
 import os
 from src.utils import predict_subscription
 
