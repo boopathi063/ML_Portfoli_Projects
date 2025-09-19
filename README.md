@@ -12,7 +12,7 @@
 ---
 
 ## 🚀 Project Overview
-This project is an **AI-powered web application** that predicts whether a bank customer will subscribe to a term deposit based on their demographics, past interactions, and economic indicators. The model leverages advanced **machine learning algorithms** like **XGBoost** and **LightGBM** for high accuracy, and the application is built using **Flask** for web deployment and **Docker** for containerization and cloud readiness.
+This project is an **AI-powered web application** that predicts whether a bank customer will subscribe to a term deposit based on their demographics, past interactions, and economic indicators. The model leverages advanced **machine learning algorithm** like **XGBoost** for high accuracy, and the application is built using **Flask** for web deployment and **Docker** for containerization and cloud readiness.
 
 ---
 
