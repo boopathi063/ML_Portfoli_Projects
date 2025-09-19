@@ -56,3 +56,15 @@ This project is an **AI-powered web application** that predicts whether a bank c
 │
 ├── notebook/ # Jupyter notebooks for EDA & modeling
 └── .github/workflows/ # CI/CD workflows 
+
+## Project Screenshots
+
+### AWS EC2 Instance
+![EC2 Instance](results/aws_ec2_instance_summary.png.jpg)
+
+### Prediction
+![Prediction](results/prediction_positive.png.jpg)
+
+### CI/CD & Project Flow
+![CI/CD Flow](results/ci_cd_pipeline_flow.png.jpg)
+
