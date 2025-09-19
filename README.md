@@ -55,4 +55,4 @@ This project is an **AI-powered web application** that predicts whether a bank c
 │ ├── index.html
 │
 ├── notebook/ # Jupyter notebooks for EDA & modeling
-└── .github/workflows/ # CI/CD workflows (optional)
+└── .github/workflows/ # CI/CD workflows 
