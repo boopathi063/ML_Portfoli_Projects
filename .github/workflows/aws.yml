@@ -1,7 +1,7 @@
 name: AWS CI/CD - Bank Prediction
 
 on:
-  push:
+  push: 
     branches:
       - main
     paths-ignore:
