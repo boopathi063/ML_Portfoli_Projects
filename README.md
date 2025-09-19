@@ -1,7 +1,7 @@
 # Bank Marketing Prediction
 **AI-Powered Customer Subscription Analysis**
 
-![Python](https://img.shields.io/badge/python-3.11-blue?logo=python)
+![Python](https://img.shields.io/badge/python-3.8-blue?logo=python)
 ![Flask](https://img.shields.io/badge/flask-2.3.2-orange?logo=flask)
 ![Docker](https://img.shields.io/badge/docker-20.10-blue?logo=docker)
 ![License](https://img.shields.io/badge/license-MIT-green)
