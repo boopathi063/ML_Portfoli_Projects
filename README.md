@@ -37,3 +37,22 @@ This project is an **AI-powered web application** that predicts whether a bank c
 ---
 
 ## 📂 Project Structure
+├── app.py # Flask application
+├── Dockerfile # Docker image setup
+├── requirements.txt # Python dependencies
+├── README.md # Project documentation
+├── models/ # Saved trained models
+│ ├── best_model.pkl
+│ └── xgb_pipeline.pkl
+├── data/ # Dataset files
+│ ├── bank.csv
+│ ├── processed_train.csv
+│ └── processed_test.csv
+├── src/
+│ ├── init.py
+│ └── utils.py # Prediction and feature engineering utilities
+├── templates/ # HTML templates
+│ ├── index.html
+│
+├── notebook/ # Jupyter notebooks for EDA & modeling
+└── .github/workflows/ # CI/CD workflows (optional)
