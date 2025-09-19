@@ -67,11 +67,11 @@ docker pull boopathi064/bankprediction-app:latest
 ## Project Screenshots
 
 ### AWS EC2 Instance
-![EC2 Instance](results/aws_ec2_instance_summary.png.jpg)
+![EC2 Instance](results/aws_ec2_instance_summary.jpg)
 
 ### Prediction
-![Prediction](results/prediction_positive.png.jpg)
+![Prediction](results/prediction_positive.jpg)
 
 ### CI/CD & Project Flow
-![CI/CD Flow](results/ci_cd_pipeline_flow.png.jpg)
+![CI/CD Flow](results/ci_cd_pipeline_flow.jpg)
 
