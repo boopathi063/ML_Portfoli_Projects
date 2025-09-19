@@ -15,7 +15,7 @@ This project is an **AI-powered web application** that predicts whether a bank c
 
 ## 📊 Features
 - Predict customer subscription probability for a term deposit.
-- Provides risk levels: **High**, **Medium**, or **Low**.
+- Provides risk levels: **High** or **Low**.
 - Generates actionable recommendations for marketing campaigns.
 - Interactive **web interface** for real-time predictions.
 - RESTful **API endpoint** for integration with other applications.
@@ -56,6 +56,13 @@ This project is an **AI-powered web application** that predicts whether a bank c
 │
 ├── notebook/ # Jupyter notebooks for EDA & modeling
 └── .github/workflows/ # CI/CD workflows 
+
+## Run Locally with Docker
+
+Pull the Docker image:
+
+--bash
+docker pull boopathi064/bankprediction-app:latest
 
 ## Project Screenshots
 
