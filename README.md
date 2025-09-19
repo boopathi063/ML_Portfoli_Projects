@@ -1,10 +1,13 @@
 # Bank Marketing Prediction
 **AI-Powered Customer Subscription Analysis**
 
-![Python](https://img.shields.io/badge/python-3.8-blue?logo=python)
-![Flask](https://img.shields.io/badge/flask-2.3.2-orange?logo=flask)
-![Docker](https://img.shields.io/badge/docker-20.10-blue?logo=docker)
-![License](https://img.shields.io/badge/license-MIT-green)
+[![Python](https://img.shields.io/badge/python-3.8-blue?logo=python)](https://www.python.org/)  
+[![Flask](https://img.shields.io/badge/flask-2.3.2-orange?logo=flask)](https://flask.palletsprojects.com/)  
+[![Docker](https://img.shields.io/badge/docker-20.10-blue?logo=docker)](https://www.docker.com/)  
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)  
+[![AWS CI/CD](https://github.com/boopathi063/aws-ci-cd-bank-prediction/actions/workflows/aws.yml/badge.svg)](https://github.com/boopathi063/aws-ci-cd-bank-prediction/actions/workflows/aws.yml)
+[![Docker Pulls](https://img.shields.io/docker/pulls/boopathi064/bankprediction-app)](https://hub.docker.com/r/boopathi064/bankprediction-app)  
+[![GitHub Stars](https://img.shields.io/github/stars/boopathi063/aws-ci-cd-bank-prediction?style=social)](https://github.com/boopathi063/aws-ci-cd-bank-prediction/stargazers)  
 
 ---
 
